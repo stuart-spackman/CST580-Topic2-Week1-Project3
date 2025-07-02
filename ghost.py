@@ -18,8 +18,11 @@ class Ghost:
         2. Use A* to move one step toward that target
         """
         target = belief_state.most_likely_position()
+        # print(f"Ghost at {self.pos} planning path to {target}")
+
         self.path = a_star_search(self.pos, target, maze)
+        # print(f"Planned path: {self.path}")
 
         # move one step along the path if possible
-        if self.path:
-            self.pos = self.path[0]
+        if self.path and len(self.path) > 1:
+            self.pos = self.path[1]
