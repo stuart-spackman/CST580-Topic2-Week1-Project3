@@ -16,6 +16,9 @@ def a_star_search(start, goal, maze):
     """
     Standard A* Search algorithm.
     Finds a path from start to goal on the maze grid.
+    A* uses a function f(n) = costSoFar + costToGo
+    Then nodes with the lowest value for f(n) are given priority for
+        navigating a path.
     """
     frontier = []
     heapq.heappush(frontier, (0, start))  # pair: (priority, node)

@@ -9,6 +9,13 @@ class BeliefState:
     def __init__(self, width, height):
         """
         Initialize a uniform belief over all cells.
+        This algorithm will compute a probability distribution over hidden states at each
+            time step after being given a sequence of observations.
+        In the Pac-Man game...
+            1. Hidden state is Pac-Man's actual position (which the ghost cannot directly see)
+            2. Observation: noisy evidence (e.g., pellet eaten, sound)
+            3. Forward Algorithm let's the ghost infer where pac-man might be and make
+                updates to its belief system
         """
         self.width = width
         self.height = height
@@ -29,6 +36,18 @@ class BeliefState:
         Here is where we actually start performing the Forward Algorithm.
         For each state x_t, sum over all possible x_t(t-1) using
         transition probabilities and emission probabilities.
+
+        For how the algorithm unfolds...
+            1. start with a uniform belief distribution
+            2. receive an observation
+            3. for each tile...
+                look at which tiles pac-man could have come from
+                use transmission probabilities to weigh how likely he was to have
+                    come from that tile
+                use emission probabilities to update based on current evidence
+
+        transition probability = "Where did Pac-Man make that noise from?"
+        emission probability = "Where is Pac-Man now?"
         """
         new_belief = np.zeros((self.width, self.height))
 
