@@ -14,9 +14,10 @@ WALL_COLOR = (50, 50, 50)  # dark gray
 EMPTY_COLOR = (230, 230, 230)  # light gray
 GHOST_COLOR = (255, 50, 50)  # red
 BELIEF_BASE_COLOR = (50, 50, 255)  # blue
+PACMAN_COLOR = (255, 255, 0)  # yellow
 
 
-def draw_grid(screen, maze, belief, ghost):
+def draw_grid(screen, maze, belief, ghost, pacman):
     """
     Draws the maze grid, walls, belief heatmap, and the ghosts's position.
     """
@@ -40,11 +41,11 @@ def draw_grid(screen, maze, belief, ghost):
 
                     # decrease R and G components
                     # this will make the tile more blue
-                    color = (
-                        EMPTY_COLOR[0] - shade,
-                        EMPTY_COLOR[1] - shade,
-                        EMPTY_COLOR[2],
-                    )
+                    r = max(0, EMPTY_COLOR[0] - shade)
+                    g = max(0, EMPTY_COLOR[1] - shade)
+                    b = EMPTY_COLOR[2]  # leave blue unchanged
+                    color = (r, g, b)
+
                     pygame.draw.rect(screen, color, rect)
 
             # draw grid border
@@ -52,5 +53,10 @@ def draw_grid(screen, maze, belief, ghost):
 
     # draw ghost as a red circle
     gx, gy = ghost.pos
-    rect = pygame.Rect(gx * TILE_SIZE, gy * TILE_SIZE, TILE_SIZE)
+    rect = pygame.Rect(gx * TILE_SIZE, gy * TILE_SIZE, TILE_SIZE, TILE_SIZE)
     pygame.draw.ellipse(screen, GHOST_COLOR, rect)
+
+    # draw Pac-Man as a yellow circle
+    px, py = pacman.pos
+    rect = pygame.Rect(px * TILE_SIZE, py * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+    pygame.draw.ellipse(screen, PACMAN_COLOR, rect)
