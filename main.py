@@ -27,7 +27,7 @@ maze = MazeGrid(WIDTH, HEIGHT, walls)
 # create game entities
 ghost = Ghost(start_pos=(0, 0))  # ghost starts in upper left
 belief = BeliefState(WIDTH, HEIGHT)
-pacman = PacMan(start_pos=(8, 8))
+pacman = PacMan(pos=(8, 8))
 
 # simulated "true" Pac-Man location
 true_pacman_pos = (8, 8)
@@ -72,7 +72,7 @@ while True:
             if event.key == pygame.K_UP:
                 pacman.move((0, -1), maze)
             elif event.key == pygame.K_DOWN:
-                pacman.move((0, -1), maze)
+                pacman.move((0, 1), maze)
             elif event.key == pygame.K_LEFT:
                 pacman.move((-1, 0), maze)
             elif event.key == pygame.K_RIGHT:
